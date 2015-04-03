@@ -32,7 +32,7 @@ var app = function(app) {
 		welcomeImage.name = "welcomeImage";
 		welcomeImage.regY = welcomeImage.getBounds().height / 2;
 		welcomeImage.regX = welcomeImage.getBounds().width / 2;
-		welcomeImage.y = 150 * pctY;
+		welcomeImage.y = 450 * pctY;
 		welcomeImage.x = stageW / 2;
 		p.welcome.addChild(welcomeImage);
 
@@ -40,7 +40,7 @@ var app = function(app) {
 		introTxt.name = "introTxt";
 		introTxt.textAlign = "center";
 		introTxt.x = stageW / 2;
-		introTxt.y = stageH - 335 * pctY;
+		introTxt.y = stageH - 200 * pctY;
 		p.welcome.addChild(introTxt);
 
 		var btArrow = new zim.Rectangle(50, 50, "#aaaaaa");	
@@ -49,7 +49,7 @@ var app = function(app) {
 		btArrow.regX = btArrow.getBounds().width / 2;
 		btArrow.regY = btArrow.getBounds().height / 2;
 		btArrow.x = stageW / 2;
-		btArrow.y = stageH - 200 * pctY;
+		btArrow.y = stageH - 100 * pctY;
 		p.welcome.addChild(btArrow);
 
 // 		var welcomeParts = [
@@ -193,7 +193,12 @@ var app = function(app) {
 			icon.on("pressup", function(e){
 				var snap = false;
 				for (i = 0; i < places.length; i++) {
-					if (zim.hitTestBounds(e.currentTarget, places[i].obj) && !places[i].taken) {
+					if (zim.hitTestBounds(e.currentTarget, places[i].obj)) {
+						if (places[i].taken) {
+							createjs.Tween.get(places[i].taken)
+								.to({x: places[i].taken.initX, y: places[i].taken.initY}, 500, createjs.Ease.cubicOut);
+							placesTaken--;
+						}
 						e.currentTarget.x = places[i].obj.x;
 						e.currentTarget.y = places[i].obj.y;
 						places[i].taken = e.currentTarget;
@@ -239,8 +244,44 @@ var app = function(app) {
 		p.result.addChild(makeBackground());
 
 		p.result.headerContainer = new createjs.Container();
+		p.result.headerContainer.setBounds(0, 0, 527, 421);
+		p.result.headerContainer.regX = 527 / 2;
+		p.result.headerContainer.regY = 421;
+		p.result.headerContainer.x = 582 / 2;
+		p.result.headerContainer.y = p.result.headerContainer.regY + 100 * pctY;
+
 		p.result.bodyContainer = new createjs.Container();
+		p.result.bodyContainer.setBounds(0, 0, 582, 347);
+		p.result.bodyContainer.regX = 582 / 2;
+		p.result.bodyContainer.regY = 0;
+		p.result.bodyContainer.x = 582 / 2;
+		p.result.bodyContainer.y = p.result.headerContainer.y;
+		
 		p.result.footerContainer = new createjs.Container();
+		p.result.footerContainer.setBounds(0, 0, 439, 158);
+		p.result.footerContainer.regX = 439 / 2;
+		p.result.footerContainer.regY = 0;
+		p.result.footerContainer.x = 582 / 2;
+		p.result.footerContainer.y = p.result.bodyContainer.y + 347;		
+
+		var fullContainer = new createjs.Container();
+		fullContainer.addChild(p.result.headerContainer);
+		fullContainer.addChild(p.result.bodyContainer);
+		fullContainer.addChild(p.result.footerContainer);
+		fullContainer.regX = fullContainer.getBounds().width / 2;
+		fullContainer.regY = fullContainer.getBounds().height / 2;
+		fullContainer.x = stageW / 2;
+		fullContainer.y = stageH / 2;
+		fullContainer.scaleX = fullContainer.scaleY = pctY - .1;
+		p.result.addChild(fullContainer);
+
+		var words = new createjs.Bitmap(preload.getResult("words"));
+		words.regX = words.getBounds().width / 2;
+		words.regY = 0;
+		words.x = stageW / 2;
+		words.y = 0;
+		words.scaleX = words.scaleY = pctY;
+		p.result.addChild(words);
 
 		function capitalizeFirstLetter(string) {
 		    return string.charAt(0).toUpperCase() + string.slice(1);
@@ -249,8 +290,9 @@ var app = function(app) {
 		function updateResultPage(nameContainer, nameImage){
 			var container = p.result[nameContainer + "Container"];
 			container.removeAllChildren();
-			var image = nameImage.toLowerCase() + capitalizeFirstLetter(nameContainer);
-			container.addChild(new createjs.Bitmap(image));
+			var imageId = nameImage.toLowerCase() + capitalizeFirstLetter(nameContainer);
+			var image = new createjs.Bitmap(preload.getResult(imageId));
+			container.addChild(image);
 			stage.update();
 		}
 				
