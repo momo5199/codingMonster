@@ -120,7 +120,7 @@ var app = function(app) {
 			place.regY = place.getBounds().height / 2;
 			place.x = stageW / 2;
 			place.y = (stageW * .1) + sumH + places[i].height / 2;
-			place.scaleX = place.scaleY = (places[i].height * stageW / iPad) / places[i].height;
+			place.scaleX = place.scaleY = (places[i].height * stageH / iPad) / places[i].height;
 			p.build.addChild(place);
 			places[i].obj = place;
 			sumH += places[i].height * place.scaleY + 40 * place.scaleY;
