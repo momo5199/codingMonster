@@ -7,7 +7,8 @@ var app = function(app) {
 		
 		zog("pages");
 
-		var i;
+		var i,
+			iPad = 2048;
 		
 		p = {};
 
@@ -39,8 +40,8 @@ var app = function(app) {
 
 		var spritesheet = new createjs.SpriteSheet(animationData);
 		var animation = new createjs.Sprite(spritesheet, 'default');
-		animation.regY = animation.getBounds().height/2;
-		animation.regX = animation.getBounds().width/2;
+		animation.regY = animation.getBounds().height / 2;
+		animation.regX = animation.getBounds().width / 2;
 		animation.y = 150;
 		animation.x = 150;
 		p.welcome.addChild(animation);
@@ -49,7 +50,7 @@ var app = function(app) {
 		introTxt.name = "introTxt";
 		introTxt.textAlign = "center";
 		introTxt.x = stageW / 2;
-		introTxt.y = 335;
+		introTxt.y = stageH - 335 * stageW / iPad;
 		p.welcome.addChild(introTxt);
 
 		var btArrow = new zim.Rectangle(50, 50, "#aaaaaa");	
@@ -58,7 +59,7 @@ var app = function(app) {
 		btArrow.regX = btArrow.getBounds().width / 2;
 		btArrow.regY = btArrow.getBounds().height / 2;
 		btArrow.x = stageW / 2;
-		btArrow.y = stageH - 100;
+		btArrow.y = stageH - 200 * stageW / iPad;
 		p.welcome.addChild(btArrow);
 
 // 		var welcomeParts = [
@@ -118,10 +119,11 @@ var app = function(app) {
 			place.regX = place.getBounds().width / 2;
 			place.regY = place.getBounds().height / 2;
 			place.x = stageW / 2;
-			place.y = 200 + sumH + places[i].height / 2;
+			place.y = (stageW * .1) + sumH + places[i].height / 2;
+			place.scaleX = place.scaleY = (places[i].height * stageW / iPad) / places[i].height;
 			p.build.addChild(place);
 			places[i].obj = place;
-			sumH += places[i].height + 40;
+			sumH += places[i].height * place.scaleY + 40 * place.scaleY;
 		}
 
 		var icons = [
