@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>CODING MONSTER GENERATOR</title> 
+		<script>var zon = true; // true for comments from zim code</script>
+		<script src="js/zim_1.4_min.js"></script><!-- take off _min to see code -->
+		<script src="js/createjs-2014.12.12.min.js"></script> 
+		<script src="js/view_h.js"></script>
+		<script src="js/controler.js"></script>
+
+		<style>
+			body {margin:0px; padding:0px; background-color:#fbd330;}
+			#myCanvas {position:absolute; background-color:#fbd330;}
+		</style>
+
+		<script>
+
+		// SCALING OPTIONS
+		// "none"		sets canvas and stage to dimensions and does not scale if window changes
+		// "fit"		sets canvas and stage to dimensions and scales to fit inside window size
+		// "outside"	sets canvas and stage to dimensions and scales to fit outside window size
+		// "full"		sets canvas and stage to window size (canvas is actually set to screen size)
+
+		var scaling = "full"; // full automatically sets width and height to window size
+		var width = null;
+		var height = null;
+		var frame = new zim.Frame(scaling, width, height); 
+		var stage;
+		var stageW;
+		var stageH;
+
+
+		frame.on("ready", function() {	
+			zog("ready from ZIM Frame");
+
+			stage = frame.stage;
+			stageW = frame.stageW;
+			stageH = frame.stageH;
+
+			var contentPath = "img/";
+			var manifest = [
+				{src:"1_welcome.png",id:"welcomeImg"},
+				{src:"2_header.png", id:"headerPlace"},
+				{src:"2_body.png", 	 id:"bodyPlace"},
+				{src:"2_footer.png", id:"footerPlace"},
+				{src:"3_1_1.png", 	 id:"htmlHeader"},
+				{src:"3_1_2.png", 	 id:"htmlBody"},
+				{src:"3_1_3.png", 	 id:"htmlFooter"},
+				{src:"3_2_1.png", 	 id:"cssHeader"},
+				{src:"3_2_2.png", 	 id:"cssBody"},
+				{src:"3_2_3.png", 	 id:"cssFooter"},
+				{src:"3_3_1.png", 	 id:"jsHeader"},
+				{src:"3_3_2.png", 	 id:"jsBody"},
+				{src:"3_3_3.png", 	 id:"jsFooter"},
+				{src:"3_4_1.png", 	 id:"phpHeader"},
+				{src:"3_4_2.png", 	 id:"phpBody"},
+				{src:"3_4_3.png", 	 id:"phpFooter"},
+				{src:"3_words.png",	 id:"words"},
+			]; // array of objects
+			var preload = new createjs.LoadQueue(false, contentPath); // use true if on the same server	
+			preload.installPlugin(createjs.Sound); // sound requires this plugin call (comment out if no sound)
+			preload.on("progress", animateProgress); // this will update the progress (optional)
+			preload.on("complete", application);	 // call the main code when ready	
+			preload.loadManifest(manifest);
+
+			var waiter = new zim.Waiter(stage);
+			waiter.show();
+			
+			// make a preloader first and animate it below
+			function animateProgress(e) {
+				// zog("progress " + e.target.progress);	
+				// the progress property gives a number from 0-1 representing progress
+			}
+
+			function application(){
+
+				var hLayoutManager = new zim.LayoutManager();
+				var gridManager = new zim.GridManager();
+				var guideManager = new zim.GuideManager();
+
+				var hP = app.makeHorizontalPages(hLayoutManager,gridManager,guideManager,preload);
+
+				// stage.addChild(hP.main);
+				// stage.addChild(hP.build);
+				// hP.info.x = 100;
+
+				// zim.Pages = function(holder, pages, transition, speed, transitionTable)
+				//lefy,right,up,down
+				var hPages = new zim.Pages(stage,[
+						{page:hP.welcome, swipe:[null, hP.build, null, null]},
+						{page:hP.build},
+						{page:hP.result, swipe:[hP.build, null, null, null]}
+					],"slide",500
+				);
+				stage.addChild(hPages);
+
+				app.makeHotspots(hP,hPages);
+
+				// put resizing code in here (scaling="full" only)
+				frame.on("resize", function(e) {
+					stageW = frame.stageW;
+					stageH = frame.stageH;
+
+					zim.scaleTo(hP.build,stage,100,100,"both");
+
+					hLayoutManager.resize();
+					gridManager.resize();
+					guideManager.resize();
+
+					stage.update();
+				}); // end of resizing
+				
+				stage.update();
+			}
+			
+		}); // end of ready
+
+
+		</script>
+	</head>
+
+	<body>
+	<!-- canvas with id="myCanvas" is made by zim Frame -->
+	</body>
+</html>
