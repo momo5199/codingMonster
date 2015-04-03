@@ -28,24 +28,13 @@ var app = function(app) {
 		p.welcome.setBounds(0,0,stageW,stageH);
 		p.welcome.addChild(makeBackground());
 
-		var animationData = {
-			"images": ["img/goodpumpkinsprite.png"],
-			"frames": [
-				[415, 207, 206, 204],
-				[208, 2, 205, 205]
-			],
-			"animations": {
-				"default":[0,5]
-			}
-		};
-
-		var spritesheet = new createjs.SpriteSheet(animationData);
-		var animation = new createjs.Sprite(spritesheet, 'default');
-		animation.regY = animation.getBounds().height / 2;
-		animation.regX = animation.getBounds().width / 2;
-		animation.y = 150;
-		animation.x = 150;
-		p.welcome.addChild(animation);
+		var welcomeImage = new createjs.Bitmap(preload.getResult("welcomeImg"));
+		welcomeImage.name = "welcomeImage";
+		welcomeImage.regY = welcomeImage.getBounds().height / 2;
+		welcomeImage.regX = welcomeImage.getBounds().width / 2;
+		welcomeImage.y = 150 * pctY;
+		welcomeImage.x = stageW / 2;
+		p.welcome.addChild(welcomeImage);
 
 		var introTxt = new createjs.Text("CODING MONSTER GENERATOR", "20px Avenir Roman", "#ef5080");
 		introTxt.name = "introTxt";
@@ -89,9 +78,9 @@ var app = function(app) {
 		btGenerate.cursor = "auto";
 		p.build.addChild(btGenerate);
 
-		var footer = new zim.Rectangle(stageW, 200, "#ef5080");
+		var footer = new zim.Rectangle(stageW, 200 * pctY, "#ef5080");
 		footer.name = "footer";
-		footer.setBounds(0, 0, stageW, 200);
+		footer.setBounds(0, 0, stageW, 200 * pctY);
 		footer.regY = footer.getBounds().height;
 		footer.x = 0;
 		footer.y = stageH;
@@ -146,7 +135,7 @@ var app = function(app) {
 			outerCircle,
 			innerCircle,
 			iconTxt,
-			iconSize = 50,
+			iconSize = 50 * pctY,
 			initX = 0,
 			initY = 0,
 			placesTaken = 0;
