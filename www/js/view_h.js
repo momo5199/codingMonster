@@ -8,7 +8,8 @@ var app = function(app) {
 		zog("pages");
 
 		var i,
-			iPad = 1024;
+			iPadH = 1024,
+			pctY = stageH / iPadH;
 		
 		p = {};
 
@@ -50,7 +51,7 @@ var app = function(app) {
 		introTxt.name = "introTxt";
 		introTxt.textAlign = "center";
 		introTxt.x = stageW / 2;
-		introTxt.y = stageH - 335 * stageW / iPad;
+		introTxt.y = stageH - 335 * pctY;
 		p.welcome.addChild(introTxt);
 
 		var btArrow = new zim.Rectangle(50, 50, "#aaaaaa");	
@@ -59,7 +60,7 @@ var app = function(app) {
 		btArrow.regX = btArrow.getBounds().width / 2;
 		btArrow.regY = btArrow.getBounds().height / 2;
 		btArrow.x = stageW / 2;
-		btArrow.y = stageH - 200 * stageW / iPad;
+		btArrow.y = stageH - 200 * pctY;
 		p.welcome.addChild(btArrow);
 
 // 		var welcomeParts = [
@@ -119,11 +120,11 @@ var app = function(app) {
 			place.regX = place.getBounds().width / 2;
 			place.regY = place.getBounds().height / 2;
 			place.x = stageW / 2;
-			place.y = (stageW * .1) + sumH + places[i].height / 2;
-			place.scaleX = place.scaleY = (places[i].height * stageH / iPad) / places[i].height;
+			place.y = 200 * pctY + sumH + places[i].height / 2;
+			place.scaleX = place.scaleY = pctY;
 			p.build.addChild(place);
 			places[i].obj = place;
-			sumH += places[i].height * place.scaleY + 40 * place.scaleY;
+			sumH += places[i].height * pctY + 40 * pctY;
 		}
 
 		var icons = [
