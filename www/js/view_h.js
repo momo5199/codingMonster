@@ -8,7 +8,7 @@ var app = function(app) {
 		zog("pages");
 
 		var i,
-			iPad = 2048;
+			iPad = 1024;
 		
 		p = {};
 
@@ -46,7 +46,7 @@ var app = function(app) {
 		animation.x = 150;
 		p.welcome.addChild(animation);
 
-		var introTxt = new createjs.Text(stageH + "CODING MONSTER GENERATOR" + stageW, "20px Avenir Roman", "#ef5080");
+		var introTxt = new createjs.Text("CODING MONSTER GENERATOR", "20px Avenir Roman", "#ef5080");
 		introTxt.name = "introTxt";
 		introTxt.textAlign = "center";
 		introTxt.x = stageW / 2;
