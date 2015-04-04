@@ -34,6 +34,7 @@ var app = function(app) {
 		welcomeImage.regX = welcomeImage.getBounds().width / 2;
 		welcomeImage.y = 450 * pctY;
 		welcomeImage.x = stageW / 2;
+		welcomeImage.scaleX = welcomeImage.scaleY = pctY;
 		p.welcome.addChild(welcomeImage);
 
 		var introTxt = new createjs.Text("CODING MONSTER GENERATOR", "20px Avenir Roman", "#ef5080");
@@ -280,7 +281,7 @@ var app = function(app) {
 		words.regY = 0;
 		words.x = stageW / 2;
 		words.y = 0;
-		words.scaleX = words.scaleY = pctY;
+		words.scaleX = words.scaleY = pctY - .1;
 		p.result.addChild(words);
 
 		function capitalizeFirstLetter(string) {
