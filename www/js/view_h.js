@@ -37,31 +37,30 @@ var app = function(app) {
 		welcomeImage.scaleX = welcomeImage.scaleY = pctY;
 		p.welcome.addChild(welcomeImage);
 
-		var introTxt = new createjs.Text("CODING MONSTER GENERATOR", "20px Avenir Roman", "#ef5080");
+		var introTxt = new createjs.Text("CODING MONSTER GENERATOR", "20px Arial", "#ef5080");
 		introTxt.name = "introTxt";
 		introTxt.textAlign = "center";
 		introTxt.x = stageW / 2;
 		introTxt.y = stageH - 200 * pctY;
 		p.welcome.addChild(introTxt);
 
-		var btArrow = new zim.Rectangle(50, 50, "#aaaaaa");	
+		var btArrow = new createjs.Bitmap(preload.getResult("btArrow"));	
 		btArrow.name = "btArrow";
-		btArrow.setBounds(0,0,50,50);
 		btArrow.regX = btArrow.getBounds().width / 2;
 		btArrow.regY = btArrow.getBounds().height / 2;
 		btArrow.x = stageW / 2;
 		btArrow.y = stageH - 100 * pctY;
+		btArrow.scaleX = btArrow.scaleY = pctY;
 		p.welcome.addChild(btArrow);
 
-// 		var welcomeParts = [
-// //			{object:animation},
-// 			{object:introTxt, maxHeight:20, align:"middle"},
-// 			{object:btArrow, maxHeight:20, align:"middle"}
-// 		];
-				
-// 		var welcomeLayout = new zim.Layout(p.welcome, welcomeParts, 5, "black", false, new createjs.Shape(), stage);
-		
-// 		layoutManager.add(welcomeLayout);
+		var btHotSpot = new zim.Rectangle(btArrow.getBounds().width, btArrow.getBounds().height, "#fbd330");
+		btHotSpot.setBounds(0, 0, btArrow.getBounds().width, btArrow.getBounds().height);
+		btHotSpot.regX = btArrow.getBounds().width / 2;
+		btHotSpot.regY = btArrow.getBounds().height / 2;
+		btHotSpot.x = btArrow.x;
+		btHotSpot.y = btArrow.y;
+		btHotSpot.alpha = .01;
+		p.welcome.addChild(btHotSpot);
 
 		// BUILD PAGE
 		
@@ -70,7 +69,7 @@ var app = function(app) {
 		p.build.setBounds(0,0,stageW,stageH);
 		p.build.addChild(makeBackground());
 
-		var btGenerate = new zim.Button(stageW * .8, null, "GENERATE", "grey", "grey", 0, 0, 0, "black", 0 );
+		var btGenerate = new zim.Button(stageW * .8, null, "GENERATE", "grey", "grey", 0, 0, 10, "black", 0 );
 		btGenerate.regX = btGenerate.getBounds().width / 2;
 		btGenerate.regY = btGenerate.getBounds().height / 2;
 		btGenerate.x = stageW / 2;
@@ -87,7 +86,7 @@ var app = function(app) {
 		footer.y = stageH;
 		p.build.addChild(footer);
 
-		var footerTxt = new createjs.Text("drag and drop", "14px Avenir Roman", "white");
+		var footerTxt = new createjs.Text("Drag and drop the language of your choice to the part of the monster.", "14px Arial", "white");
 		footerTxt.name = "footerTxt";
 		footerTxt.textAlign = "center";
 		footerTxt.x = stageW / 2;
@@ -103,10 +102,8 @@ var app = function(app) {
 		var place, sumH = 0;
 
 		for (i = 0; i < places.length; i++) {
-			//place = new zim.Rectangle(stageW * .6, places[i].height, places[i].color);
 			place = new createjs.Bitmap(places[i].image);
 			place.name = places[i].name + "Place";
-			//place.setBounds(0, 0, stageW * .6, places[i].height);
 			place.regX = place.getBounds().width / 2;
 			place.regY = place.getBounds().height / 2;
 			place.x = stageW / 2;
@@ -158,7 +155,7 @@ var app = function(app) {
 			innerCircle.y = outerCircle.y;
 			icon.addChild(innerCircle);
 
-			iconTxt = new createjs.Text(icons[i].name, "20px Avenir Roman", "white");
+			iconTxt = new createjs.Text(icons[i].name, "20px Arial", "white");
 			iconTxt.textAlign = "center";
 			iconTxt.textBaseline = "middle";
 			iconTxt.x = outerCircle.x;
@@ -256,14 +253,14 @@ var app = function(app) {
 		p.result.bodyContainer.regX = 582 / 2;
 		p.result.bodyContainer.regY = 0;
 		p.result.bodyContainer.x = 582 / 2;
-		p.result.bodyContainer.y = p.result.headerContainer.y;
+		p.result.bodyContainer.y = p.result.headerContainer.y + 20 * pctY;
 		
 		p.result.footerContainer = new createjs.Container();
 		p.result.footerContainer.setBounds(0, 0, 439, 158);
 		p.result.footerContainer.regX = 439 / 2;
 		p.result.footerContainer.regY = 0;
 		p.result.footerContainer.x = 582 / 2;
-		p.result.footerContainer.y = p.result.bodyContainer.y + 347;		
+		p.result.footerContainer.y = p.result.bodyContainer.y + 347 + 20 * pctY;		
 
 		var fullContainer = new createjs.Container();
 		fullContainer.addChild(p.result.headerContainer);

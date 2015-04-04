@@ -7,7 +7,7 @@ var app = new function(app){
 		var hs = new zim.HotSpots([
 			{
 				page: assets.welcome,
-				rect: assets.welcome.children[2],
+				rect: assets.welcome.children[4],
 				call: function(){
 					pages.go(assets.build, "right");
 				}
