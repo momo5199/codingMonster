@@ -86,7 +86,7 @@ var app = function(app) {
 		footer.y = stageH;
 		p.build.addChild(footer);
 
-		var footerTxt = new createjs.Text("Drag and drop the language of your choice to the part of the monster.", "14px Arial", "white");
+		var footerTxt = new createjs.Text("Drag the script to the part of the monster.", "14px Arial", "white");
 		footerTxt.name = "footerTxt";
 		footerTxt.textAlign = "center";
 		footerTxt.x = stageW / 2;
