@@ -90,14 +90,13 @@
 				// zim.Pages = function(holder, pages, transition, speed, transitionTable)
 				//lefy,right,up,down
 				var hPages = new zim.Pages(stage,[
-						{page:hP.welcome, swipe:[null, hP.build, null, null]},
 						{page:hP.build},
 						{page:hP.result, swipe:[hP.build, null, null, null]}
 					],"slide",500
 				);
 				stage.addChild(hPages);
 
-				app.makeHotspots(hP,hPages);
+				//app.makeHotspots(hP,hPages);
 
 				// put resizing code in here (scaling="full" only)
 				frame.on("resize", function(e) {

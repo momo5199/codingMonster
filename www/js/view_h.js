@@ -23,7 +23,7 @@ var app = function(app) {
 		
 		// WELCOME PAGE
 
-		p.welcome = new createjs.Container();		
+		/*p.welcome = new createjs.Container();		
 		p.welcome.name = "welcome";	
 		p.welcome.setBounds(0,0,stageW,stageH);
 		p.welcome.addChild(makeBackground());
@@ -60,7 +60,7 @@ var app = function(app) {
 		btHotSpot.x = btArrow.x;
 		btHotSpot.y = btArrow.y;
 		btHotSpot.alpha = .01;
-		p.welcome.addChild(btHotSpot);
+		p.welcome.addChild(btHotSpot);*/
 
 		// BUILD PAGE
 		
